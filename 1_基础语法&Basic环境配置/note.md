@@ -148,6 +148,11 @@ messg:=`  aaaa    bbbb
   - a+b
 
 
+变量类型转换
+- 转换为浮点型 flaot64(变量)
+- 转换为整型 uint(变量)
+
+
 
 
 
@@ -174,7 +179,16 @@ c语言
 ```
 int *pointer = (int *)malloc(sizefo(int))
 ```
-
+go语言
+```go
+package main
+import "fmt"
+func main(){
+	var star *string = new(string)
+	*star = "star star"
+	fmt.Println(*star)
+}
+```
 go 语言
 ```go
 Pointer :=new(string)
@@ -334,7 +348,148 @@ func main(){
 }
 ```
 ## 0x24 map字典
+> map[int]string 等价于 map[int] = string
+```go
+	var shopename map[int]string
+  shopename[12]= "123";
+	fmt.Printf(shopename[12])
+```
+1.定义一个map，但是map不能直接使用
+- panic: assignment to entry in nil map
+
+2.需要直接使用make地址进行分配空间
+
+```go
+package main
+import "fmt"
+func main(){
+	var shopename map[int]string
+	// 定义一个map，但是map不能直接使用
+	// panic: assignment to entry in nil map
+
+	shopename = make(map[int]string,10)
+	shopename[12]= "123";
+	fmt.Printf(shopename[12])
+}
+```
+
+map的遍历
+```go
+package main
+import "fmt"
+func main(){
+	var shopename map[int]string
+	// 定义一个map，但是map不能直接使用
+	// panic: assignment to entry in nil map
+
+	shopename = make(map[int]string,10)
+	shopename[12]= "123";
+	// fmt.Printf(shopename[12])
+	shopename[78]="789"
+	for key,value:= range shopename{
+		fmt.Println(key,value)
+	}
+}
+```
+
+判断是否存在
+
+```go
+	fmt.Println(shopename[100] == "")
+  key,value:=shopename[100]
+```
+
+删除map函数
+
+```go
+delete(map函数,keyword)
+```
 
 ## 0x25 Function 函数
+> 可以返回多个返回值
+- 返回单个值
+```go
+package main
+import "fmt"
+func main(){
+	fmt.Println(aaddb(1,5))
+}
+
+func aaddb(a int,b int) int{
+	return a+b
+}
+```
+- 返回多个值
+
+
+```go
+package main
+import "fmt"
+func main(){
+	fmt.Println(aaddb(1,5))
+	fmt.Println(a_add_sub_b(1,5))
+
+}
+
+func a_add_sub_b(a int,b int)(int,int){
+	return a+b,a-b
+}
+
+func aaddb(a int,b int) int{
+	return a+b
+}
+
+```
+
+- 返回多个值省略其中某个值
+
+```go
+package main
+import "fmt"
+func main(){
+	fmt.Println(aaddb(1,5))
+	a,_ := a_add_sub_b(1,5)
+	fmt.Println(a)
+
+}
+
+func a_add_sub_b(a int,b int)(int,int){
+	return a+b,a-b
+}
+
+func aaddb(a int,b int) int{
+	return a+b
+}
+
+```
+> 定义多个相同类型变量
+> ```go
+> var i,k,j int
+>```
+
+- 当返回值类型有了名称 就直接写return
+```go
+func a_sub_b(a int,b int) (result int){
+	result = a - b
+	return
+}
+```
+## 0x26 内存逃逸
+- 原本从栈上的内容逃跑到堆上
+- 返回？◀
+
+## 0X27 import包导入
+- 默认调用包名 需要使用 **包名.函数**
+- 如果一个包名想要对外提供访问权限一定要首字母大写
+   - 首字母小写相当于 Private 只有相同包名才可以使用
+   - 首字母大写相当于 Public
+```go
+ import(
+  name "path/paths"  //name是给包命名
+  . "path/paths" //直接引用
+  "fmt"
+ )
+
+```
 
 
