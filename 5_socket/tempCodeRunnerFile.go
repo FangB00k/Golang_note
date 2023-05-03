@@ -1,4 +1,1 @@
-	if err != nil {
-		fmt.Println("netserver_error_accept1:",err)
-		return
-	}
+127.0.0.1:8848
